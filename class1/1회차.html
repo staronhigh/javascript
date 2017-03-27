@@ -35,27 +35,29 @@
         var age = 28, job = "web publisher";
     </script>
     <pre>
-        var name; // 변수를 선언하고 초기화한다.
-        name = "김혜진";  // 변수에 값을 할당한다.
+        <code>
+           var name; // 변수를 선언하고 초기화한다.
+            name = "김혜진";  // 변수에 값을 할당한다.
+        </code>
     </pre>
 
     <hr>
     <h2>자료형 (Data type)</h2>
-    <p>기본자료형과 / object(객체형,참조형) 이 있다. 아래는 기본자료형의 5가지이다. </p>
+    <p>기본자료형과 / object(객체형,참조형) 이 있다. 아래는 기본자료형의 5가지이다. (ECMAScript 6에서 기본자료형 symbol이 추가됨)</p>
 
     <h3>String</h3>
-    <p>''작은따옴표 또는 ""큰따옴표를 사용</p>
+    <p>''작은따옴표 또는 ""큰따옴표를 사용하여 텍스트 데이터를 나타낸다.</p>
     <script>
         var name = "김혜진";
-        name = "이름은 \'김혜진\" 입니다";
-        name = " 이름은 \n 김혜진 입니다";
-
+        name = "이름은 \'김혜진\" 입니다"; // 따옴표 사용시 \'
+        name = " 이름은 \n 김혜진 입니다"; // 한칸내릴시 \n
     </script>
 
     <h3>Number</h3>
+    <p>다른 프로그래밍 언어의 경우 보통 정수형과 실수형을 구분하지만, 자바스크립트는 하나의 숫자 자료형으로 표현한다.</p>
     <script>
         0.1+0.2 = ?  // 부동소수점 사칙연산은 정수 사칙연산보다 부정확하다. 오류가 아닌 IEEE-754에서 정의한 방식대로 계산하였기 때문이다.
-        var bar = 1 + "string";
+        var bar = 1 * "string";
         console.log(bar);        // NaN (Not a Number)
         console.log(typeof bar)  // number
 
@@ -64,7 +66,7 @@
 
         var foo = -1 / 0;
         console.log(foo);  // -Infinity
-        typeOf(foo)        // number, infinity는 숫자이다
+        typeof(foo)        // number, infinity는 숫자이다
 
     </script>
 
@@ -73,9 +75,15 @@
         논리적 요소를 나타내며, ture, false 두가지 값을 가짐
         false, 빈문자열(""), NaN, null, undefined, 0 은 false로 간주된다.
     </p>
+    <pre>
+    <code>
+        var foo = ture;
+        var bar = false;
+    </code>
+    </pre>
 
     <h3>undefined</h3>
-    <p>선언은 되었지만 할당된적이 없는 변수에 접근하거나 존재하지 않는 객체 프로퍼티에 접근할 경우 반환됨</p>
+    <p>선언은 되었지만 할당된적이 없는 변수에 접근하거나 존재하지 않는 객체 프로퍼티에 접근할 경우 반환된다</p>
     <script>
         var foo;
         console.log(foo); // undefined
@@ -119,21 +127,17 @@
     <h3>산술연산자</h3>
     <p>+, -, *, /, %</p>
 
-    <h3>연결연산자</h3>
-    <p>"문자와"+"문자를 연결시킴"</p>
-
     <h3>증감연산자</h3>
     <p>
         num++, num--, ++num, --num <br>
         변수의 값을 하나씩 증가시키거나 감소시킴
     </p>
     <script>
-        var i, j;
-        i = 5;
-        j = i++; // 선대입후증가
-        //j = i--;
-        //j = ++i;
-        //j = --i;
+        var i = 5;
+        i++; // 5  선대입후증가
+        ++i; // 7  선증가후대입
+        i--; // 7  선대입후감소
+        --i; // 5  선감소후대입
     </script>
 
     <h3>대입연산자</h3>
@@ -237,22 +241,25 @@
     <hr>
 
     <h2>조건문 (Conditional Statements)</h2>
-    <p>조건식의 참, 거짓을 분별하여 참일 때와 거짓일 때의 실행문을 달리하는 제어문</p>
+    <p>조건식의 참, 거짓을 분별하여 참일 때와 거짓일 때의 실행문을 달리하는 제어문이다</p>
     <h3>if문</h3>
+    <p>주어진 조건식을 평가하여 참, 거짓을 구별한다.</p>
     <pre>
-    if (조건식){
-        조건식이 참일때 실행
-    } else {
-        조건식이 거짓일때 실행
-    }
+    <code>
+        if (조건식){
+            조건식이 참일때 실행
+        } else {
+            조건식이 거짓일때 실행
+        }
+    </code>
     </pre>
     <script>
-        //var value = prompt("글자를 입력하세요" ,"김");
-        /*if (value !== "박") {
+        var value = prompt("글자를 입력하세요" ,"김");
+        if (value !== "박") {
             alert("당신은 박씨가 아닙니다.");
             alert("당신은 " + value + "씨 입니다.");
             alert("안녕히가세요");
-        }*/
+        }
 
         var greeting;
         var hour = new Date().getHours();
@@ -290,7 +297,7 @@
     </script>
 
     <h3>switch문</h3>
-    <p>switch 변수의 값과 일치되는 case문으로 실행순서가 이동</p>
+    <p>switch 변수의 값과 일치되는 case문으로 실행순서가 이동하고 <br>일치되는 case문이 없을 경우 실행순서는 default로 이동한다.</p>
     <script>
         var day;
         switch (new Date().getDay()) {
@@ -356,6 +363,16 @@
             default:
                 text = "Looking forward to the Weekend";
         }
+    </script>
+
+    <h3>삼항연산자</h3>
+    <p>연산자에 속하지만 조건에따라 프로그램진행을 변화시킬수 있다.</p>
+    <pre><code>
+        (조건문) ? 참일때 실행 : 거짓일때 실행
+    </code></pre>
+    <script>
+        var number = 20;
+        (number > 0) ? alert("자연수입니다.") : alert("자연수가 아닙니다.")
     </script>
 
     <hr>
