@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>1회차 script study</title>
+</head>
+<body>
+
+    <h1>javascript 1회차</h1>
+
+    <h2>기본문법</h2>
+    <ol>
+        <li>html내 head, body안에 들어갈수 있다. (body요소 가장아래가 좋은위치)</li>
+        <li>구문은 세미콜론(;)으로 끝나야 한다.</li>
+        <li>주석은 두가지 한줄주석(//) , 여러줄주석(/**/)</li>
+    </ol>
+
+    <hr>
+    <h2>네이밍규칙</h2>
+    <ol>
+        <li>대소문자를 구분해야 한다.</li>
+        <li>키워드를 사용하면 안된다. (키워드 : http://poiemaweb.com/js-syntax-basics#9-키워드-keyword)</li>
+        <li>숫자로 시작하면 안된다.</li>
+        <li>특수문자는 _과 $만 허용한다.</li>
+        <li>공백문자를 포함할 수 없다.  </li>
+    </ol>
+
+    <hr>
+    <h2>변수 (variable)</h2>
+    <script>
+        var name ;
+        name = "김혜진";
+        var age = 28, job = "web publisher";
+    </script>
+    <pre>
+        var name; // 변수를 선언하고 초기화한다.
+        name = "김혜진";  // 변수에 값을 할당한다.
+    </pre>
+
+    <hr>
+    <h2>자료형 (Data type)</h2>
+    <p>기본자료형과 / object(객체형,참조형) 이 있다. 아래는 기본자료형의 5가지이다. </p>
+
+    <h3>String</h3>
+    <p>''작은따옴표 또는 ""큰따옴표를 사용</p>
+    <script>
+        var name = "김혜진";
+        name = "이름은 \'김혜진\" 입니다";
+        name = " 이름은 \n 김혜진 입니다";
+
+    </script>
+
+    <h3>Number</h3>
+    <script>
+        0.1+0.2 = ?  // 부동소수점 사칙연산은 정수 사칙연산보다 부정확하다. 오류가 아닌 IEEE-754에서 정의한 방식대로 계산하였기 때문이다.
+        var bar = 1 + "string";
+        console.log(bar);        // NaN (Not a Number)
+        console.log(typeof bar)  // number
+
+        console.log(isNaN(NaN)); // true,  해당데이터가 NaN인지 검사해주는 내장객체, NaN일때 true
+        console.log(isNaN("hello"));
+
+        var foo = -1 / 0;
+        console.log(foo);  // -Infinity
+        typeOf(foo)        // number, infinity는 숫자이다
+
+    </script>
+
+    <h3>boolean</h3>
+    <p>
+        논리적 요소를 나타내며, ture, false 두가지 값을 가짐
+        false, 빈문자열(""), NaN, null, undefined, 0 은 false로 간주된다.
+    </p>
+
+    <h3>undefined</h3>
+    <p>선언은 되었지만 할당된적이 없는 변수에 접근하거나 존재하지 않는 객체 프로퍼티에 접근할 경우 반환됨</p>
+    <script>
+        var foo;
+        console.log(foo); // undefined
+
+        foo = {
+            name: 'Lee',
+            gender: 'male'
+        }
+        console.log(foo.bar); // undefined
+
+        var a;
+        console.log(typeof a);         // undefned
+        console.log(a == undefined);   // true
+        console.log(a == null);        // true
+        console.log(null == undefined) // true
+
+        console.log(typeof b); // undefined  선언되지 않은 변수를 사용함에 따라 자바스크립트 엔진이 강제적으로 undefined를 할당한다.
+
+        console.log(a==undefined); // error  선언되지 않은 변수이기에 undefined 데이터타입이지만 사용할수없는 문법
+
+        var c;
+        console.log(c); // 아직 값이 할당되지 않은 undefined
+
+        c = "hello world";
+        console.log(c);
+        // c는 "hello world"의 문자열 객체를 할당 받았음으로 null,undefined가 아닌 hello world 이다.
+
+        c=null;
+        console.log(c);
+        // c가 참조하는 hello world 라는 문자열 객체를 해제하였기에 undefined가 아닌 null 이다.
+    </script>
+
+    <h3>null</h3>
+    <p>값이 없음을 명시</p>
+
+    <h3>object(객체형,참조형)</h3>
+    <p>배열,함수,날짜,정규식</p>
+
+   <hr>
+    <h2>연산자</h2>
+    <h3>산술연산자</h3>
+    <p>+, -, *, /, %</p>
+
+    <h3>연결연산자</h3>
+    <p>"문자와"+"문자를 연결시킴"</p>
+
+    <h3>증감연산자</h3>
+    <p>
+        num++, num--, ++num, --num <br>
+        변수의 값을 하나씩 증가시키거나 감소시킴
+    </p>
+    <script>
+        var i, j;
+        i = 5;
+        j = i++; // 선대입후증가
+        //j = i--;
+        //j = ++i;
+        //j = --i;
+    </script>
+
+    <h3>대입연산자</h3>
+    <p>
+        =, +=, -=, *=, /=, %=
+        연산자 오른쪽에 있는 값을 연산자 왼쪽에 대입
+    </p>
+    <script>
+        var x;
+
+        x = 10;   // 10
+        x += 5;   // 15
+        x -= 5;   // 10
+        x *= 5;   // 50
+        x /= 5;   // 10
+        x %= 5;   // 0
+
+        var txt1 = "Good";
+        var txt2 = "Morning";
+        var txt3 = txt1 + " " + txt2; // Good Morning
+
+        txt1 = "What a very ";
+        txt1 += "nice day"; // What a very nice day
+    </script>
+
+    <h3>비교연산자</h3>
+    <p>==, ===, !=, !==, &gt; , &lt; , &gt;=, &lt;=, ?(삼항연산자)</p>
+    <script>
+        // >, <, >=, <= 네가지 연산자는 string, number 형만을 연산
+        // 동일 여부를 파악하는 연산자는 모든 자료형과 연산할수있음
+        var x = 5
+
+        x == 5    // true
+        x == '5'  // true
+        x == 8    // false
+
+        x === 5   // true
+        x === '5' // false
+
+        x != 8    // true
+        x != 5    // false
+        x != '5'  // false
+
+        x !== 8   // true
+        x !== 5   // false
+        x !== '5' // true
+
+        //삼항연산자(ternary operator)
+        var now = new Date();
+        var greeting = "Good" + ((now.getHours() > 17) ? " evening." : " day.");
+    </script>
+
+    <h3>논리연산자</h3>
+    <p>
+        &amp;&amp;(and), ||(or), !(not)
+        불린값과 불린값을 연산할때 사용
+    </p>
+
+    <script>
+        // && (논리곱) 연산자
+        var a1 =  true && true;     // t && t returns true
+        var a2 =  true && false;    // t && f returns false
+        var a3 = false && true;     // f && t returns false
+        var a4 = false && (3 == 4); // f && f returns false
+        var a5 = "Cat" && "Dog";    // t && t returns Dog
+        var a6 = false && "Cat";    // f && t returns false
+        var a7 = "Cat" && false;    // t && f returns false
+
+        // || (논리 합) 연산자
+        var o1 =  true || true;     // t || t returns true
+        var o2 = false || true;     // f || t returns true
+        var o3 =  true || false;    // t || f returns true
+        var o4 = false || (3 == 4); // f || f returns false
+        var o5 = "Cat" || "Dog";    // t || t returns Cat
+        var o6 = false || "Cat";    // f || t returns Cat
+        var o7 = "Cat" || false;    // t || f returns Cat
+
+        // ! (논리 부정) 연산자
+        var n1 = !true;  // false
+        var n2 = !false; // true
+        var n3 = !"Cat"; // false
+    </script>
+    <a href="http://poiemaweb.com/js-operator">http://poiemaweb.com/js-operator</a>
+
+    <script>
+        // 잘못된 연산 예시
+        console.log(2 + "10");
+        console.log("abc" * 10);
+        console.log("30" / 3);
+        console.log(true + 5);
+        console.log("A" > 123);
+        console.log("abc" || false);
+        console.log(342 && true);
+        console.log(!10);
+
+        //형변환을 한 후 연산하는것이 좋다.
+        // 형변환 함수 String(x), Number(x)
+        console.log(String(2) + "10");
+    </script>
+
+    <hr>
+
+    <h2>조건문 (Conditional Statements)</h2>
+    <p>조건식의 참, 거짓을 분별하여 참일 때와 거짓일 때의 실행문을 달리하는 제어문</p>
+    <h3>if문</h3>
+    <pre>
+    if (조건식){
+        조건식이 참일때 실행
+    } else {
+        조건식이 거짓일때 실행
+    }
+    </pre>
+    <script>
+        //var value = prompt("글자를 입력하세요" ,"김");
+        /*if (value !== "박") {
+            alert("당신은 박씨가 아닙니다.");
+            alert("당신은 " + value + "씨 입니다.");
+            alert("안녕히가세요");
+        }*/
+
+        var greeting;
+        var hour = new Date().getHours();
+        if (hour < 18) {
+            console.log("Good day");
+        }
+
+        if (hour < 18) {
+            console.log("Good day");
+        } else {
+            console.log("Good evening");
+        }
+
+        if (time < 10) {
+            console.log("Good morning");
+        } else if (time < 20) {
+            console.log("Good day");
+        } else {
+            console.log("Good evening");
+        }
+
+        if ("5" === String(5)) {
+            if (4 < 3) {
+                console.log("출력1");
+            } else {
+                console.log("출력2");
+            }
+            console.log("출력5");
+        } else {
+            if (true === !false) {
+                console.log("출력4");
+            }
+            console.log("출력3");
+        }
+    </script>
+
+    <h3>switch문</h3>
+    <p>switch 변수의 값과 일치되는 case문으로 실행순서가 이동</p>
+    <script>
+        var day;
+        switch (new Date().getDay()) {
+            case 0:
+                day = "Sunday";
+                console.log(day);
+            case 1:
+                day = "Monday";
+                console.log(day);
+            case 2:
+                day = "Tuesday";
+                console.log(day);
+            case 3:
+                day = "Wednesday";
+                console.log(day);
+            case 4:
+                day = "Thursday";
+                console.log(day);
+            case 5:
+                day = "Friday";
+                console.log(day);
+            case  6:
+                day = "Saturday";
+                console.log(day);
+        }
+    </script>
+    <p>
+        break 키워드는 switch 구문에서 탈출하는 역할.  <br>
+        break 가 없다면 실행순서는 다음 case 문으로 이동
+    </p>
+    <script>
+        var day;
+        switch (new Date().getDay()) {
+            case 0:
+                day = "Sunday";
+                break;
+            case 1:
+                day = "Monday";
+                break;
+            case 2:
+                day = "Tuesday";
+                break;
+            case 3:
+                day = "Wednesday";
+                break;
+            case 4:
+                day = "Thursday";
+                break;
+            case 5:
+                day = "Friday";
+                break;
+            case 6:
+                day = "Saturday";
+        }
+
+        switch (new Date().getDay()) {
+            case 6:
+                text = "Today is Saturday";
+                break;
+            case 0:
+                text = "Today is Sunday";
+                break;
+            default:
+                text = "Looking forward to the Weekend";
+        }
+    </script>
+
+    <hr>
+    <h2>반복문 (Loop)</h2>
+    <p>
+        조건식의 참, 거짓을 분별하여 참일 경우 실행문을 싱행하며 조건식이 거짓일때까지 반복됨. <br>
+        3가지 반복문이 있음 for, while, do while
+    </p>
+    <h3>for 문</h3>
+    <p>정해진 횟수만큼 반복 실행할 때 사용</p>
+    <pre>
+        for(초기문; 조건문; 증감문;){
+            실행문
+        }
+    </pre>
+    <script>
+        var text = "";
+        for (i = 0; i < 5; i++) {
+            text += "The number is " + i + "\n";
+        }
+        console.log(text);
+
+        // for 문 안에서 변수를 선언했을때
+        for (var i=1; i<=10; i=i+2) {
+            var a = i + 5;
+            console.log(String(i) + " + 5 = " + String(a));
+        }
+        // console.log(a);
+
+        // for 문 밖에서 변수를 선언했을때
+        var value = 0;
+        for (var i=1; i<=10; i=i+1) {
+            value = value + i;
+        }
+        console.log(value);
+    </script>
+
+    <h3>while문</h3>
+    <p>반복횟수를 알지 못할 때 사용</p>
+    <pre>
+        while (조건문){
+            실행문
+        }
+    </pre>
+    <script>
+        var i = 0;
+        while (i < 3) {
+          console.log(i);
+          i++;
+        }
+        // 무한루프의 조건문은 피해야한다.
+        while (true) {
+          console.log("Hello, world");
+        }
+    </script>
+
+    <h3>do while문</h3>
+    <p>while문과 유사하나 최소 1회 이상 실행</p>
+    <pre>
+        do {
+            실행문
+        } while (조건문);
+    </pre>
+    <script>
+        var i = 0;
+        do {
+          console.log(i);
+          i++;
+        } while (i < 3);
+    </script>
+
+    <h3>break</h3>
+    <p>반복문을 탈출할 때 사용하는 키워드</p>
+    <script>
+        var i = 0;
+        while (1) {    // infinite loop
+          if (i > 3) break;
+          console.log("The number is " + i );
+          i++;
+        }
+    </script>
+
+    <h3>continue</h3>
+    <p>continue문 이후의 구문은 실행 생략하고 반복문의 조건검사 위치로 이동</p>
+    <script>
+        for (var i = 0; i < 5; i++) {
+          if (i % 2 == 0) continue;
+          console.log("The number is " + i );
+        }
+    </script>
+
+</body>
+</html>
