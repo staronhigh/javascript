@@ -26,6 +26,17 @@
         <li>특수문자는 _과 $만 허용한다.</li>
         <li>공백문자를 포함할 수 없다.  </li>
     </ol>
+    <script>
+        alpha
+        alpha10
+        break // 사용안됨
+        _alpha
+        $alpha
+        273alpha // 사용안됨
+        AlPha
+        ALPHA
+        has space // 사용안됨
+    </script>
 
     <hr>
     <h2>변수 (variable)</h2>
@@ -384,9 +395,11 @@
     <h3>for 문</h3>
     <p>정해진 횟수만큼 반복 실행할 때 사용</p>
     <pre>
+    <code>
         for(초기문; 조건문; 증감문;){
             실행문
         }
+    </code>
     </pre>
     <script>
         var text = "";
@@ -408,14 +421,27 @@
             value = value + i;
         }
         console.log(value);
+
+        //피라미드찍기 (중첩반복문)
+        var output = '';
+        for (var i=0; i<10; i++) {
+            for (var j=0; j<i; j++) {
+                output += '*';
+            }
+            output += '\n';
+        }
+        alert(output);
+
     </script>
 
     <h3>while문</h3>
     <p>반복횟수를 알지 못할 때 사용</p>
     <pre>
+    <code>
         while (조건문){
             실행문
         }
+    </code>
     </pre>
     <script>
         var i = 0;
@@ -432,9 +458,11 @@
     <h3>do while문</h3>
     <p>while문과 유사하나 최소 1회 이상 실행</p>
     <pre>
+    <code>
         do {
             실행문
         } while (조건문);
+    </code>
     </pre>
     <script>
         var i = 0;
@@ -463,6 +491,7 @@
           console.log("The number is " + i );
         }
     </script>
+
 
 </body>
 </html>
