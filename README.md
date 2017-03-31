@@ -5,6 +5,7 @@
 Javascript는 HTML, CSS와 함께 웹을 구성하는 요소중 하나로 웹브라우저에서 동작하는 유일한 언어로 1995년 Brendan Eich(Nescape)이 Navigator 2를 위하여 웹페이지에 포함되는 스크립트 언어로서 개발되었다.
 
 JavaScript는 멀티-패러다임 언어로 명령형 (imperative), 함수형 (functional), 프로토타입 기반 (prototype-based) 객체지향형 언어다. 비록 다른 객체지향적인 언어들과의 차이점에 대한 논쟁들이 있긴 하지만, JavaScript는 강력한 객체지향 프로그래밍 능력들을 지니고 있다. 간혹 클래스가 없어서 객체지향이 아니라고 생각하는 사람들도 있으나 프로토타입 객체지향 방식의 객체지향 언어이다.
+
 <hr/>
 
 ### 1.2 ECMAScript
@@ -16,8 +17,29 @@ JavaScript는 1995년 Brendan Eich(Nescape)이 Navigator 2를 위하여 웹페�
 
 2015년 ECMAScript 6(ES6)가 공개되었고 let keyword, module system, Arrow Function, class 등이 추가되었다. 
 ES5에서 ES6로의 버전업은 기능 상의 큰 변화가 있었고 이후의 버전업은 작은 기능의 추가 레벨로 매년 공개할 것으로 예고되었다.
+
 <hr/>
 
+## 2. Study 진행과정
+### 2.1 1회차 
+1. 문법
+2. 변수
+3. 자료형
+4. 연산자
+5. 조건문
+6. 반복문
+
+### 2.2 2회차
+1. 함수
+2. 배열
+3. 객체
+
+### 3.3 3회차
+1. 내장객체
+2. 브라우저객체모델
+3. 문서객체모델
+
+<hr/>
  
 ## 참고
 - https://developer.mozilla.org/ko/docs/Web/JavaScrip (모질라에서 제공하는 자바스크립트 기술목록)
