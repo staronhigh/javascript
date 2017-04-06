@@ -48,11 +48,10 @@ Javascript 에서 변수는 data를 저장, 참조하기 위해 사용된다.
 </pre>
 
 ## 3.3 Boolean
-논리적 요소를 나타내며, ture, false 두가지 값을 가짐
-false, 빈문자열(""), NaN, null, undefined, 0 은 false로 간주된다.
+논리적 요소를 나타내며, ture, false 두가지 값을 가진다.
 <pre>
 <code>
-    var foo = ture;
+    var foo = true;
     var bar = false; 
 </code>
 </pre>
@@ -130,10 +129,6 @@ false, 빈문자열(""), NaN, null, undefined, 0 은 false로 간주된다.
     x !== 8  
     x !== 5  
     x !== '5'
-
-    //삼항연산자(ternary operator)
-    var now = new Date();
-    var greeting = "Good" + ((now.getHours() > 17) ? " evening." : " day."); 
 </code>
 </pre>
 
@@ -144,9 +139,9 @@ false, 빈문자열(""), NaN, null, undefined, 0 은 false로 간주된다.
     var x = true;
     var y = false;
     
-    x && y;  // && 논리곱(and)
-    x || y;  // || 논리합(or)
-    !x;      // !  논리부정
+    true && false;  // && 논리곱(and)
+    true || false;  // || 논리합(or)
+    !true;          // !  논리부정
 </code>
 </pre>
 
@@ -205,7 +200,8 @@ switch변수의 값과 일치되는 case문으로 실행순서가 이동하고,
 
 
 # 6. 반복문 (Loop)
-조건식의 참, 거짓을 분별하여 참일 경우 실행문을 싱행하며 조건식이 거짓일때까지 반복된다.
+조건식의 참, 거짓을 분별하여 참일 경우 실행문을 실행하며 조건식이 거짓일때까지 반복된다. <br>
+3가지 반복문이 있다. for, while, do while
 
 ## 6.1 for문
 정해진 횟수만큼 반복 실행할때 사용한다.
