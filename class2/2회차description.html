@@ -1,0 +1,648 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>2회차 script study</title>
+</head>
+<body>
+    <h1>javascript 2회차</h1>
+
+    <h2>함수 (Function)</h2>
+    <p>
+        함수의 일반적인 기능은 특정 작업을 수행하는 구문들의 집합을 정의하고
+        필요시에 호출하여 필요한 값 또는 수행결과를 얻는것이다. 함수는 구문의 집합으로 모듈화의 근간이 된다.
+        <strong>함수도 객체</strong>이므로 다른 변수나 객체, 배열 등에 저장될수있고 함수에 전달되는 인수로도
+        사용할수 있으며 함수의 반환값이 될수도있다.
+        함수를 정의하는 방식은 3가지가 있다.
+    </p>
+
+    <ol>
+        <li>함수선언식</li>
+        <li>함수표현식</li>
+        <li>생성자 함수</li>
+    </ol>
+
+    <h3>함수 선언</h3>
+    <p>함수선언식의 경우, 함수명은 생략할 수 없다.</p>
+    <pre>
+    <code>
+       function 함수명 ( 매개변수1, 매개변수2, ... ) {
+            상태문
+       };
+       함수명();  //함수호출
+    </code>
+    </pre>
+    <ul>
+        <li>함수명 - 함수 선언식의 경우, 함수명은 생략할수없다. 함수명은 식별자같은역할이다. </li>
+        <li>매개변수 목록 - 0개이상의 목록으로 괄호로 감싸고, 콤마로 분리한다. </li>
+        <li>함수몸체 - 실제 함수가 호출되었을때 실행되는 구문들의 집합이다. 중괄호로 구문을 감싸고
+         return문으로 결과값을 반환할수있다.</li>
+    </ul>
+    <script>
+        //myFunction(1,2);
+        function myFunction(a, b) {
+            return a * b;
+        };
+        myFunction(1,2);
+    </script>
+
+    <h3>함수 표현</h3>
+    <p>
+        함수 표현식은 변수에 익명함수를 할당하는 방법이다.
+        이같은 방식을 리터럴방식이라고도 부른다.
+    </p>
+    <pre>
+    <code>
+        var 변수(함수명) = function ( 매개변수1, 매개변수2, ...) {
+            상태문
+        };
+        함수명();  //함수호출
+    </code>
+    </pre>
+    <script>
+        //foo(1,2);
+        var foo = function(a,b) {
+            return a * b;
+        };
+        //foo(1,2);
+
+        //기명함수표현식
+        var foo = function multiply(a,b){
+            return a * b;
+        };
+        //익명함수표현식
+        var bar = function(a,b){
+            return a * b;
+        };
+        foo(10,5);
+        multiplay(10,5); // error 함수표현식에서 사용한 함수명은 외부 코드에서 접근 불가능하다.
+        // 함수표현식은 함수명을 생략할수있다. 이러한 함수를 익명함수라 한다. 보통 생략하는것이 일반적이다.
+
+        //함수선언식과 함수표현식과 동일하게 리터럴 방식으로 정의된다. 아래와같이 자바스크립트엔진에 의해 변환된다.
+        var myFunction = function myFunction(a,b){
+            return a * b;
+        };
+    </script>
+
+    <h3>Function() 생성자함수</h3>
+    <p>
+        함수선언식과 함수표현식은 모두 함수 리터럴 방식으로 함수를 정의한다.
+        이것은 결국 내장함수 Function() 생성자 함수로 함수를 생성하는것을 단순화 시킨것이다.
+        <!-- Function() 생성자 함수로 함수를 생성하는 방식은 일반적으로 사용하지 않는다. -->
+    </p>
+    <pre>
+        <code>
+            var 변수명 = new Function(매개변수1, 매개변수2 ..., 상태문);
+        </code>
+    </pre>
+    <script>
+        var square = new Function('number', 'return number * number');
+        console.log(square(10));
+    </script>
+
+    <h3>함수 선언문과 함수표현의 차이 (함수 호이스팅)</h3>
+    <p>
+        호이스팅이란?
+        인터프린터가 자바스크립트 코드를 해섬함에 있어서 global 영역의 선언된 코드블럭(변수,함수선언문)을
+        최상의 scope(유효범위)로 끌어올리는 것을 말한다.
+
+        함수선언은 실행코드를 해석하기 이전에
+        함수에 대한 선언을 호이스팅하여 global 객체에 등록시키 때문에 오류 없이 수행되지만,
+        함수표현은 변수에 할당하는 구조이기 때문에 호이스팅 되지 않으며 에러를 발생시킨다.
+        쉽게말해, 선언문은 자바스크립트 엔진 구동시 가장 최우선으로 해석된다.
+
+        이말은, 자바스크립트 코드를 해석할때 코드작성 순서에 상관없이 global 영역의
+        선언된 코드블럭(변수나 함수선언문들)을 먼저 수집하여 전역객체의 속성으로 등록시켜둔다.
+        전역변수와 전역함수는 코드 어디에 위치해도 실행이 가능한것이다.
+    </p>
+
+    <script>
+        //문제 1
+        function 함수(){
+            var 함수A = function() {
+                console.log('hello');
+            }
+
+            return 함수A();
+
+            function 함수A() {
+                console.log('world');
+            }
+        }
+        함수();
+        /* 자바스크립트 엔진이 구동되는 시점에 global 영역에 선언된 함수()를 호이스팅 한다.
+        런타임에서 해석되는 실행코드보다 선언문이 먼저해석되서, return 함수A()라는 실행문이 해석되기이전에
+        function 함수A()로 선언된 함수선언문이 먼저 해석되어진다.*/
+
+
+        //문제 2
+        function 함수2(){
+            function 함수A() {
+                console.log('hello');
+            }
+
+            return 함수A();
+
+            function 함수A() {
+                console.log('world');
+            }
+        }
+        함수2();
+        // return 실행코드보다 선언문이 먼저 해석되기 때문에 두번째로 선언된 함수A를 실행하게 된다.
+
+        //문제 3
+        function 함수3(){
+            var 함수A= function() {
+                console.log('hello');
+            };
+            return 함수A();
+            var 함수A = function() {
+                 console.log('world');
+            };
+        }
+        함수3();
+        /**
+        변수에 할당은 런타임 시점에서 이루어지고 자바스크립트 엔진은 런타임 이전까지는 강제적으로 undefined를 할당하게되고
+        호이스팅 되어진 함수3()안에 구조는 실행코드를 만나기 전까지는 아래와 같이 해석되어진다.
+        두번째에서 작성된 함수표현식은 실행조차 되지않고 끝나버린다.
+        function 함수3(){
+            var 함수A= undefined;
+            var 함수A= undefined;
+            함수A = function() {
+                console.log('hello');
+            };
+           return bar();
+        }
+        **/
+
+    </script>
+
+    <h3>매개변수(Parameter)</h3>
+    <p>
+        함수호출시 함수로 넘겨질 인자(argument)값들을 담기 위해 함수명세에서 선언된 변수,
+        함수 내부 어디에서든 별다른 선언없이 함수호출시 넘어온 인자값을 할당받아 바로 사용가능하다.
+    </p>
+    <pre>
+        <code>
+            function sum(x,y){  //괄호 안 x, y 매개변수
+                return x+y;
+            }
+
+            sum(1,2);
+            // 함수호출시 괄호 안의 값을 인자(argument)라고 부른다.
+        </code>
+    </pre>
+    <script>
+        function sum(x,y) {
+            return x+y;
+        }
+
+        console.log(sum(1,2));      // 3
+        console.log(sum(1,2,3));    // 3
+        console.log(sum(1,2) * 4 ); // 함수는 값으로도 사용 가능하다.
+        console.log(sum(1));        // NaN
+        console.log(sum());         // NaN
+    </script>
+
+    <h3>반환값 (return)</h3>
+    <p>
+        return 키워드는 함수를 호출한 코드에게 값을 반환할때 사용한다. 반환을 생략할시 암묵적으로 undefined를 반환한다.
+        return 키워드 이후에 다른 구문이 존재하면 그 구문은 실행되지 않는다.
+    </p>
+    <script>
+        function returnFunction(){
+            alert("문장 A");
+            return;
+            alert("문장 B")
+        }
+        returnFunction();
+
+
+        var num1 = 20,
+            num2 = 3,
+            name = "김혜진";
+
+        function getScore () {
+          var num1 = 2,
+              num2 = 3;
+
+          function add() {
+            return name + " scored " + (num1 + num2);
+          }
+
+          return add();
+        }
+        getScore();
+    </script>
+
+    <h3>즉시호출함수</h3>
+    <p>
+        함수의 정의와 동시에 실행되는 함수를 즉시호출함수라고 한다. 최소 한번만 호출되며 다시 호출할수 없다.
+    </p>
+    <script>
+        (function myFunction() {
+            var a = 3;
+            var b = 5;
+            return a * b;
+        }());
+    </script>
+    <p>
+        글로벌 스코프에 정의된것은 코드 내의 어디서든지 접근이 가능하여 공유되면 곤란하거나,
+        다른 스크립트 파일내에서 동일한 이름으로 명명된 변수나 함수가 같은 스코프 내에 존재할경우 문제가있다.
+        즉시실행함수 내에 로직을 모아두면 혹시 모르는 변수명 충돌을 방지할수있다.
+        특히 jquery같은 라이브러리 경우 코드를 즉시실행함수 내에 정의해두면 라이브러리의 변수들이
+        독립된 영역내에있게되므로 여러 라이브러리들은 동시에 사용하더라도 변수명 충돌과 같은 문제를 방지할수있다.
+    </p>
+    <script>
+        (function() {
+          var foo = 1;
+          console.log(foo);
+        }());
+
+        var foo = 100;
+        console.log(foo);
+    </script>
+
+    <h3>내부함수</h3>
+    <p>
+        함수내부에 정의된 함수를 내부함수라고한다. 내부함수는 자신을 포함하고있는 부모함수 변수에 접근가능하지만,
+        부모함수는 자식함수의 변수에 접근할 수 없다.
+    </p>
+    <script>
+        function parent(param) {
+          var parentVar = param;
+          function child() {
+            var childVar = 'kim';
+            console.log(parentVar + ' ' + childVar);
+          }
+          child();
+          console.log(parentVar + ' ' + childVar);
+        }
+        parent('Hello');
+    </script>
+    <script>
+        function sayHello(name){
+          var text = 'Hello ' + name;
+          var logHello = function(){ console.log(text); }
+          logHello();
+        }
+        sayHello('kim');
+        logHello('kim');
+    </script>
+
+    <h3>콜백함수</h3>
+    <p>
+        함수를 명시적으로 호출하는 것이 아닌 특정 이벤트가 발생했을 때 시스템에 의해 호출되는 함수이다. <br>
+        대표적으로 이벤트 핸들러가 콜백함수가 자주 사용된다.
+    </p>
+
+    <button id="myButton">Click me</button>
+    <script>
+        var button = document.getElementById('myButton');
+        button.addEventListener('click', function() {
+          console.log('button clicked!');
+        });
+    </script>
+
+    <hr>
+
+    <h2>배열 (Array)</h2>
+    <p>
+        배열은 한개의 변수에 여러개의 값을 순차적으로 저장할때 사용한다. <br>
+        이름과 인덱스로 참조되는 정렬되는 값들의 집합이다.  <br>
+        대괄호를 사용하고 안에 쉼표로 구분해 자료를 입력한다.
+    </p>
+    <pre>
+        <code>
+            var arr = [];
+            var array = [1,2,3,4,5];
+            var array = new Array(1,2,3,4,5); // Array 생성자함수
+            var array = Array(1,2,3,4,5);
+        </code>
+    </pre>
+    <script>
+        var array = [ 273, 'String', true, function(){}, new Array, [273,103] ];
+        // 배열안에 입력된 값을 배열 요소라고 부른다.
+        console.log(array);
+    </script>
+
+    <h3>배열에 값 저장과 배열요소 추가</h3>
+    <p>배열의 요소에 값을 할당하여 배열에 값을 저장할 수 있다.</p>
+    <script>
+        // 배열에 값 저장 (배열요소에 값을 할당하여 값을 저장할수있다)
+        // 배열요소에 접근시 괄호 안에 들어간 숫자를 인덱스라고 부르며, 인덱스 값은 0 으로 시작한다.
+        // 배열은 인덱스와 요소가 전부다
+        array[0] = "김혜진";
+        array[2] = false;
+        array[7] = "배열요소추가"; // 7번째는 빈값이 들어가고, 8번째에 값이들어감
+    </script>
+
+    <h3>배열요소 참조</h3>
+    <p>배열의 요소를 참조하기 위해 해당요소의 인덱스를 사용하여 접근한다.</p>
+    <script>
+        // 배열요소의 참조
+        console.log(array[0]);
+        console.log(array[2]);
+        console.log(array[5]);
+    </script>
+
+    <h3>배열의 길이</h3>
+    <p>
+        length 속성은 요소의 갯수(배열의 길이)를 나타낸다. <br>
+        배열의 길이는 항상 마지막 요소의 인덱스에 1을 더한 값을 반환한다.
+    </p>
+    <script>
+        var cats = [];
+        console.log(cats.length); // 0
+
+        cats[30] = "cute";
+        console.log(cats.length); // 31
+        console.log(cats[0]);     // undefined
+    </script>
+
+    <h3>배열의 반복문</h3>
+    <p>배열을 가지고 처리하는 주된 작업은 배열의 요소를 반복적으로 접근해서 읽어오는 작업이다.</p>
+    <script>
+        var colors = ['red', 'green', 'blue'];
+        for (var i = 0; i < colors.length; i++) {
+          console.log(colors[i]);
+        }
+    </script>
+
+    <hr>
+
+    <h2>객체 (Object)</h2>
+    <p>
+        자바스크립트는 객체기반의 스크립트 언어이며 자바스크립트를 이루고 있는 거의 모든것들이 객체로 존재한다. <br>
+        함수도 객체이다.<br>
+        객체지향언어의 다른 언어처럼 자바스크립트에서의 객체는 우리주변의 사물과 같다.  <br>
+        객체는 property(속성)와 value(값)로 구성되어있는 데이터타입을 의미한다. <br>
+        주변에있는 사물 컵을 예로 든다면 컵은 사물 객체인데 색깔, 모양, 무게, 재료 등의 속성(프로퍼티)를 갖고있다. <br>
+        이처럼 자바스크립트 객체는 그 특징을 결정짓는 여러 프로퍼티를 가진다. <br>
+        (어느곳에서는 key라고도 부른다)
+
+    </p>
+    <pre>
+        <code>
+            var objectName = {
+                property : value
+            } 중괄호로 묶어준다.
+        </code>
+    </pre>
+    <script>
+        var person = {
+            name : "혜진",
+            gender : "여자"
+        }
+        console.log(typeof person);
+        console.log(person);
+    </script>
+
+    <h3>Object() 생성자 함수</h3>
+    <p>
+        new 연산자와 Object() 생성자 함수를 사용하여 빈 객체를 생성할수 있다. <br>
+        빈 객체 생성 이후 속성을 추가하여 객체를 완성하는 방법이다.
+    </p>
+    <pre>
+        <code>
+            var objectName = new Object();
+        </code>
+    </pre>
+    <script>
+        var person = new Object();
+        person.name = "혜진";
+        person.gender = "여자";
+        console.log(typeof person);
+        console.log(person);
+    </script>
+
+    <h3>객체와 속성(property)</h3>
+    <p>
+        프로퍼티는 객체에 붙은 변수라고 설명할수있다.
+        객체의 프로퍼티는 일반 변수와 기본적으로 같지만 객체에 속해있다는 차이만 있다.
+        객체의 프로퍼티들이 객체의 특징을 규정한다. 프로퍼티에 접근할때는 점 표기법을 사용한다.
+    </p>
+    <pre>
+        <code>
+            objectName.propertyName = value;    // 점표기법
+            objectName["propertyName"] = value; // 대괄호표기법
+
+            var myCup = {};
+            myCup.color = "red";
+            myCup["shape"] = "star";
+        </code>
+    </pre>
+    <script>
+        var myCup = {};     //  객체 생성 또는 아래 방법도 있다.
+        var myCup = new Object();
+        var myCup = {
+            "name" : "my cup",
+            "weight" : "90g"
+        }
+
+        // 객체의 프로퍼티에 값을 할당하거나 접근할시 두가지 표현방법이 있다.
+        myCup.color = "red";     //  마침표를 이용하여 color 라는 이름의 프로퍼티를 생성하면서 red라는 값을 할당
+        myCup["shape"] = "star"; //  대괄호 표기법을 사용하여 객체의 프로퍼티에 접근할수도있다.
+        // 대괄호내에 들어가는 속성명은 문자열이여야만 한다.
+
+        // 프로퍼티의 값을 갱신, 프로퍼티에 새로운 값을 할당하면 갱신된다.
+        myCup.color = "blue";
+
+        // 프로퍼티의 이름은 자바스크립트 식별자나 문자열 모두 사용가능하다.
+        // 식별자로 적합하지 않은 (하이픈,빈칸,숫자로시작하는이름 등) 이름은 문자열로만 생성가능하고,
+        // 대괄호를 이용한 표기법으로만 접근가능하다.
+        var str = "myString",
+        var obj = {
+            "with space" : 273,
+            "with~!@" : 52,
+            str : "아무말"
+        }
+        console.log(obj["with space"]); // 273
+        console.log(obj.withwith~!@);   // 대괄호로 사용해야함
+        console.log(obj[str]);          // 대괄호안 문자열이 아니여서 안됨
+        //console.log(obj["str"]);  이거나 console.log(obj.str);
+
+        // 속성제거
+        // delete 연산자를 사용하면 객체의 속성을 삭제할 수 있다.
+        delete obj.str;
+        console.log(obj.str);
+        console.log(obj);
+        delete obj;
+        console.log(obj);
+
+    </script>
+
+    <h3>객체의 메서드</h3>
+    <p>객체의 프로퍼티의 값이 함수인 것을 메소드라고 한다. </p>
+    <pre>
+        <code>
+            var cal = {
+                add : function(a,b){
+                    return a + b;
+                }
+            };
+            cal.add(10,20);
+
+            // add() function이 자리잡게되면 add function은 add method로 불리게 된다.
+        </code>
+    </pre>
+    <script>
+        var cat = {
+            name : "고양이",
+            age : "2",
+            voice : function(num){
+                for(var i=0; i<num; i++){
+                    alert("야옹!")
+                }
+            }
+        }
+        //cat.voice(3);
+        //typeof(cat.voice);
+    </script>
+    <p>
+        우리가 이전에 썼던 console.log(), new Date.getDay() 등이 자바스크립트 내장객체로서,
+        현재까지 썼던것이 메소드이다.
+    </p>
+
+    <h3>this 키워드</h3>
+    <p>
+        자바스크립트는 this라는 특별한 키워드를 가지고 있습니다. 메서드 내부에서
+        this 키워드를 사용하게 되면 해당 메서드를 포함한 객체를 가르키게 됩니다.
+    </p>
+    <script>
+        var myObject = {
+            firstName:"김",
+            lastName: "혜진",
+            fullName: function() {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+        console.log(myObject.fullName());
+
+        // this를 리턴할시
+        var myObject = {
+            firstName:"김",
+            lastName: "혜진",
+            fullName: function() {
+                return this;
+            }
+        }
+        console.log(myObject.fullName());
+
+        // ** 전역객체, 이 this를 이용하여 전역객체에 대한것을 살펴볼수가있다. **
+         var myObject = {
+            firstName:"김",
+            lastName: "혜진",
+            fullName: function() {
+                return this;
+            },
+            o : this
+        }
+        console.log(myObject.o); // window
+        window.myObject          // 이 윈도우는 전역객체로써, 모든 전역변수와 함수는 사실 window 객체의 프로퍼티이다.
+
+        //모든 객체는 기본적으로 전역객체의 프로퍼티임을 알 수 있다. 그렇다면 함수를 호출할때 this는 무엇을 가르키는지 보자
+        function func(){
+            if(window === this){
+                console.log("window === this");
+            }
+        }
+        func();
+        // this는 전역객체인 window와 같다.
+
+    </script>
+
+    <h3>생성자 함수</h3>
+    <p>
+        생성자 함수는 new 키워드로 객체를 생성 할 수있는 함수이다.
+        생성자 함수의 이름은 일반적으로 대문자로 시작한다.
+        생성자 함수 안에서 this키워드로 생성자 함수로 생성될 객체의 속성을 지정한다.
+    </p>
+    <script>
+        // 보통의 객체생성 방식으로 객체를 생성하면 속성값만 다른 여러개의 객체 생성을 해야한다.
+        var person1 = {
+          name: 'Lee',
+          gender:'male',
+          sayHello: function(){
+            alert('Hi! my name is ' + this.name);
+          }
+        };
+        var person2 = {
+          name: 'Kim',
+          gender:'female',
+          sayHello: function(){
+            alert('Hi! my name is ' + this.name);
+          }
+        };
+
+        // 생성자 함수를 마치 객체를 생성하기 위한 템플릿처럼 사용하여 속성값이 다른 객체 여러개를 간편하게 생성할수있다.
+        // 코드의 재사용성이 높아진 것이다.
+        function Person(name, gender) {
+          this.name = name;
+          this.gender = gender;
+          this.sayHello = function(){
+            alert('Hi! my name is ' + this.name);
+          };
+        }
+
+        var person1 = new Person('Lee', 'male');
+        var person2 = new Person('Kim', 'female');
+
+        console.log(person1.sayHello());
+        console.log(person2.sayHello());
+
+        console.log(typeof(person1));
+        console.log(typeof(person2));
+    </script>
+
+    <h3>객체의 반복문</h3>
+    <p>대괄호 표기법을 for in문과 함께 사용하면 객체의 열거가능한 프로퍼티를 나열할 수 있다. </p>
+    <script>
+        var myCar = {
+            make : "Ford",
+            model : "Mustang",
+            year : "1969"
+        }
+
+        for(var key in myCar){
+            var data = myCar[key];
+            console.log(data);
+        }
+
+        // for in 문
+        // 객체의 각 속성이나 배열의 각 요소에 대해 하나 이상의 문을 실행
+        for (variable in [object,array]){
+            statements
+        }
+    </script>
+
+    <h3>객체의 구성</h3>
+    자바스크립트에서 객체는 크게 3가지로 구분된다.
+    <ol>
+        <li>자바스크립트 내장객체</li>
+        <li>브라우져 내장객체</li>
+        <li>사용자 정의 객체</li>
+    </ol>
+    <h4>자바스크립트 내장객체(Built-in Object)</h4>
+    <p>
+        Global,Object, String, Number, Boolean, Date, Array, Math, RegExp, Error 등 많은 내장객체들이 있다.
+        이들은 자바스크립트 엔진이 구동되는 시점에서 바로 제공되며 자바스크립트코드 어디에서든 사용이 가능하다.
+    </p>
+    <h4>브라우저 내장객체(Native Object)</h4>
+    <p>
+        Native Object 역시 자바스크립트가 구동되는 시점에서 바로 사용이 가능한 객체들이지만,
+        자바스크립트 엔진이 구성하는 기본객체라고 하기 보단, 즉 자바스크립트 엔진을 구동하는 녀석들에서 빌드되는 객체이다.
+        브라우저객체모델(BOM)과 문서객체모델(DOM)이 이에 속한다. 이들을 굳이 Native Object 라 분류한 이유는
+        브라우져마다 이 Native Object 를 사용함에 있어서 그 구성을 달리하는 경우가 있기 때문이다.
+    </p>
+    <h4>사용자 정의 객체(Host Object)</h4>
+    <p>
+        말그대로 사용자가 생성한 객체
+        사용자가 객체를 정의하고 확장시킨 것들이기 때문에 위에 두가지객체종류가 구성된이후에 구성되어진다.
+    </p>
+</body>
+</html>
+
+
